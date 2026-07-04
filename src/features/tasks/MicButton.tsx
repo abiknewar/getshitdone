@@ -45,7 +45,7 @@ export function MicButton({ onTranscript, busy = false }: Props) {
   return (
     <div className="flex flex-col items-center gap-3">
       {(listening || partial) && (
-        <div className="min-h-[1.5rem] max-w-xs text-center text-sm text-muted">
+        <div className="min-h-[1.5rem] max-w-xs text-center text-sm text-white/90">
           {partial || 'Listening…'}
         </div>
       )}
@@ -57,14 +57,12 @@ export function MicButton({ onTranscript, busy = false }: Props) {
         aria-pressed={listening}
         aria-label={listening ? 'Stop listening' : 'Start voice command'}
         className={
-          'relative flex h-20 w-20 items-center justify-center rounded-full transition-all ' +
-          (listening
-            ? 'bg-brand text-white scale-105'
-            : 'bg-surface-2 text-brand-soft hover:bg-surface border border-border')
+          'relative flex h-20 w-20 items-center justify-center rounded-full bg-white text-brand shadow-lg transition-all ' +
+          (listening ? 'scale-105 text-brand-deep' : 'hover:scale-105')
         }
       >
         {listening && (
-          <span className="absolute inset-0 rounded-full bg-brand/40 animate-pulseRing" aria-hidden="true" />
+          <span className="absolute inset-0 rounded-full bg-white/50 animate-pulseRing" aria-hidden="true" />
         )}
         {busy ? (
           <span className="h-6 w-6 animate-spin rounded-full border-2 border-current border-t-transparent" />
@@ -73,9 +71,9 @@ export function MicButton({ onTranscript, busy = false }: Props) {
         )}
       </button>
 
-      <p className="text-xs text-muted">
+      <p className="pixel-label text-[11px] text-white/80">
         {!supported
-          ? 'Voice not supported here — type below'
+          ? 'Voice not supported — type below'
           : busy
             ? 'Thinking…'
             : listening

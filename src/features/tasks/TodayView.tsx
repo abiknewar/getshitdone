@@ -25,12 +25,15 @@ export function TodayView() {
   return (
     <div className="flex flex-col gap-6">
       <header className="pt-2">
-        <p className="text-sm text-muted">{format(new Date(), 'EEEE, MMMM d')}</p>
-        <h1 className="text-2xl font-bold">Today</h1>
+        <p className="pixel-label text-xs text-muted">{format(new Date(), 'EEE · MMM d')}</p>
+        <h1 className="text-2xl font-bold tracking-tight">Today</h1>
       </header>
 
-      <div className="flex flex-col items-center gap-4 py-2">
-        <MicButton onTranscript={handleTranscript} busy={busy} />
+      <div className="relative overflow-hidden rounded-3xl bg-brand px-6 py-8 shadow-card">
+        <div className="pixels absolute inset-0 text-white/25" aria-hidden="true" />
+        <div className="relative flex flex-col items-center gap-4">
+          <MicButton onTranscript={handleTranscript} busy={busy} />
+        </div>
       </div>
 
       <QuickAdd onAdd={(title) => add(title, todayISO())} placeholder="Add something for today…" />

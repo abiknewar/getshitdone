@@ -18,7 +18,7 @@ export function NavBar() {
             end={end}
             className={({ isActive }) =>
               'flex flex-1 flex-col items-center gap-1 py-2.5 text-xs transition-colors ' +
-              (isActive ? 'text-brand-soft' : 'text-muted hover:text-text')
+              (isActive ? 'text-brand' : 'text-muted hover:text-text')
             }
           >
             <Icon className="h-5 w-5" />

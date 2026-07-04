@@ -5,19 +5,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#0f0f12',
-        surface: '#17171c',
-        'surface-2': '#1f1f27',
-        border: '#2a2a34',
-        muted: '#8b8b98',
-        text: '#f2f2f5',
+        // Crisp black-and-white base with an electric-blue accent (pixel theme).
+        bg: '#F6F7F9',
+        surface: '#FFFFFF',
+        'surface-2': '#EDEFF5',
+        border: '#DEE1EB',
+        muted: '#6A6F7E',
+        ink: '#0B0C10',
+        text: '#0B0C10',
         brand: {
-          DEFAULT: '#7c5cff',
-          soft: '#a78bfa',
+          DEFAULT: '#3D5AFE', // cobalt / electric blue
+          soft: '#6E86FF',
+          deep: '#2A3FD0',
         },
-        good: '#34d399',
-        warn: '#fbbf24',
-        bad: '#f87171',
+        good: '#0F9D6E',
+        warn: '#B7791F',
+        bad: '#E02424',
       },
       fontFamily: {
         sans: [
@@ -30,9 +33,19 @@ export default {
           'Arial',
           'sans-serif',
         ],
+        mono: [
+          'ui-monospace',
+          'SFMono-Regular',
+          'SF Mono',
+          'Menlo',
+          'Consolas',
+          'Liberation Mono',
+          'monospace',
+        ],
       },
       boxShadow: {
-        glow: '0 0 0 4px rgba(124, 92, 255, 0.15)',
+        glow: '0 0 0 4px rgba(61, 90, 254, 0.15)',
+        card: '0 1px 2px rgba(11, 12, 16, 0.06), 0 1px 3px rgba(11, 12, 16, 0.04)',
       },
       keyframes: {
         pulseRing: {

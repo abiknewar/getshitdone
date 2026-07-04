@@ -13,10 +13,10 @@ interface Props {
 export function TaskSection({ title, tasks, accent = 'default', onComplete, onDelete, onEdit }: Props) {
   if (tasks.length === 0) return null
   const color =
-    accent === 'danger' ? 'text-bad' : accent === 'brand' ? 'text-brand-soft' : 'text-muted'
+    accent === 'danger' ? 'text-bad' : accent === 'brand' ? 'text-brand' : 'text-muted'
   return (
     <section className="flex flex-col gap-2">
-      <h2 className={'px-1 text-xs font-semibold uppercase tracking-wide ' + color}>
+      <h2 className={'pixel-label px-1 text-[11px] font-semibold ' + color}>
         {title} <span className="text-muted">· {tasks.length}</span>
       </h2>
       <ul className="flex flex-col gap-2">

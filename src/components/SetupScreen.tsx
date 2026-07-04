@@ -13,7 +13,7 @@ export function SetupScreen() {
           </p>
         </div>
         <div className="card flex flex-col gap-3 p-5 text-sm">
-          <p className="text-muted">Create a <code className="text-brand-soft">.env</code> file with:</p>
+          <p className="text-muted">Create a <code className="text-brand">.env</code> file with:</p>
           <pre className="overflow-x-auto rounded-lg bg-surface-2 p-3 text-xs">
 {`VITE_SUPABASE_URL=https://xxxx.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key`}

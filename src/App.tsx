@@ -37,9 +37,9 @@ export default function App() {
           <div className="flex items-center justify-between py-3">
             <div className="flex items-center gap-2">
               <Logo className="h-7 w-7" />
-              <span className="font-semibold">Get Shit Done</span>
+              <span className="pixel-label text-sm font-semibold">Get Shit Done</span>
             </div>
-            <button onClick={signOut} className="text-xs text-muted hover:text-text">
+            <button onClick={signOut} className="pixel-label text-[11px] text-muted hover:text-text">
               Sign out
             </button>
           </div>

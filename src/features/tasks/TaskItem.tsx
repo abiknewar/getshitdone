@@ -61,7 +61,7 @@ export function TaskItem({ task, onComplete, onDelete, onEdit }: Props) {
           <span
             className={
               'mt-0.5 block text-xs ' +
-              (isOverdue(task.due_date) ? 'text-bad' : isToday(task.due_date) ? 'text-brand-soft' : 'text-muted')
+              (isOverdue(task.due_date) ? 'text-bad' : isToday(task.due_date) ? 'text-brand' : 'text-muted')
             }
           >
             {due}

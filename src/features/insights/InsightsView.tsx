@@ -19,8 +19,10 @@ const RANGES: { key: Range; label: string }[] = [
   { key: 'year', label: 'Year' },
 ]
 
-const BRAND = '#7c5cff'
-const BRAND_SOFT = '#a78bfa'
+const BRAND = '#3D5AFE'
+const BRAND_SOFT = '#6E86FF'
+const GRID = '#DEE1EB'
+const AXIS = '#6A6F7E'
 
 function ChartTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null
@@ -94,22 +96,22 @@ export function InsightsView() {
           <div className="h-56 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={insights.buckets} margin={{ top: 8, right: 4, bottom: 0, left: -20 }}>
-                <CartesianGrid vertical={false} stroke="#2a2a34" strokeDasharray="3 3" />
+                <CartesianGrid vertical={false} stroke={GRID} strokeDasharray="3 3" />
                 <XAxis
                   dataKey="label"
-                  tick={{ fill: '#8b8b98', fontSize: 11 }}
+                  tick={{ fill: AXIS, fontSize: 11 }}
                   tickLine={false}
-                  axisLine={{ stroke: '#2a2a34' }}
+                  axisLine={{ stroke: GRID }}
                   interval={range === 'month' ? 4 : 0}
                 />
                 <YAxis
                   allowDecimals={false}
-                  tick={{ fill: '#8b8b98', fontSize: 11 }}
+                  tick={{ fill: AXIS, fontSize: 11 }}
                   tickLine={false}
                   axisLine={false}
                   width={32}
                 />
-                <Tooltip cursor={{ fill: 'rgba(124,92,255,0.08)' }} content={<ChartTooltip />} />
+                <Tooltip cursor={{ fill: 'rgba(61,90,254,0.08)' }} content={<ChartTooltip />} />
                 <Bar dataKey="count" radius={[4, 4, 0, 0]} maxBarSize={40}>
                   {insights.buckets.map((_, i) => (
                     <Cell key={i} fill={i === maxIdx ? BRAND_SOFT : BRAND} />
