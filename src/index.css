@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: theme('colors.bg');
+  color: theme('colors.text');
+  font-family: theme('fontFamily.sans');
+  -webkit-font-smoothing: antialiased;
+  /* respect iOS safe areas */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Hide scrollbars but keep scrolling */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-border bg-surface;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2
+      font-medium transition-colors disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-white hover:bg-brand-soft;
+  }
+  .btn-ghost {
+    @apply btn text-muted hover:bg-surface-2 hover:text-text;
+  }
+  .input {
+    @apply w-full rounded-xl border border-border bg-surface-2 px-4 py-3
+      text-text placeholder:text-muted focus:border-brand focus:outline-none;
+  }
+}
