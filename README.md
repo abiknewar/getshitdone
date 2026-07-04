@@ -1,17 +1,29 @@
 # Get Shit Done
 
-A voice-first task manager. Tap the mic, say what you need to do (or what you
-finished), and it happens. Built as an installable PWA — add it to your phone's
-home screen and it behaves like a native app.
+A voice-first task manager **and** daily news brief, in a clean black-and-white
+(pixel-microphone) design. Installable as a PWA — add it to your phone's home
+screen and it behaves like a native app.
+
+**👉 New here? Follow [SETUP.md](SETUP.md) — a plain-English, click-by-click
+guide** to get it live on a URL and installed on your phone.
 
 - 🎙️ **Talk to it.** "Add buy milk and call mom tomorrow." "I finished the report."
   Claude figures out whether you meant add / complete / delete / reschedule —
   even several things in one sentence.
 - ✅ **Tasks persist until done.** A "someday" task stays on your list until you
   complete it. Completing it checks it off and clears it from your active list.
+- 📰 **Daily Brief.** Each morning it asks if you want the brief: ~12 stories
+  across AI, tech, marketing, content and geopolitics — compiled by Claude (web
+  search, optionally blended with X) and **read aloud** by an on-device voice.
 - ☁️ **Cloud sync.** Log in once; your tasks follow you across devices in real time.
 - 📊 **Insights.** Day / week / month / year completion charts, streaks, and rate.
 - ⌨️ **Everything is clickable too**, so it works even where the mic doesn't.
+
+## Design
+
+Editorial black & white — heavy display type (Archivo Black), clean line icons,
+generous space. The **microphone is the one pixel-art element** (pixel glyph,
+pixel equalizer, pixel pulse). Fonts are embedded, so it works offline.
 
 ## Tech stack
 
@@ -21,6 +33,8 @@ home screen and it behaves like a native app.
 | Data / auth | Supabase (Postgres + Auth + Row-Level Security + Realtime) |
 | Speech → text | Browser Web Speech API (on-device, free) |
 | Text → intent | Claude, called from a Supabase Edge Function (`voice-intent`) |
+| Daily brief | Claude web search (+ optional X API), Edge Function (`daily-brief`) |
+| Narration | Browser SpeechSynthesis (on-device, free) |
 | Charts | Recharts |
 
 The Anthropic API key lives **only** on the Edge Function as a secret — it never
@@ -80,12 +94,17 @@ supabase link --project-ref YOUR-REF
 # set your Claude key as a secret (never committed, never sent to the browser)
 supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
 
-# deploy the function
+# optional: blend real X/Twitter posts into the daily brief (needs a paid X plan)
+# supabase secrets set X_BEARER_TOKEN=...
+
+# deploy both functions
 supabase functions deploy voice-intent
+supabase functions deploy daily-brief
 ```
 
-The default model is `claude-haiku-4-5-20251001` (fast + cheap). To use a
-stronger model, set `supabase secrets set GSD_MODEL=claude-sonnet-5`.
+Models: voice parsing defaults to `claude-haiku-4-5-20251001` (fast + cheap);
+the daily brief defaults to `claude-sonnet-5` (needs web search). Override with
+`GSD_MODEL` and `GSD_BRIEF_MODEL` secrets respectively.
 
 ### 6. Run it
 

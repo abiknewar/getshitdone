@@ -14,6 +14,7 @@ export function TaskItem({ task, onComplete, onDelete, onEdit }: Props) {
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(task.title)
   const due = formatDue(task.due_date)
+  const over = isOverdue(task.due_date)
 
   function saveEdit() {
     const clean = draft.trim()
@@ -22,14 +23,14 @@ export function TaskItem({ task, onComplete, onDelete, onEdit }: Props) {
   }
 
   return (
-    <li className="card flex items-center gap-3 px-3 py-3">
+    <li className="flex items-center gap-3 rounded-2xl border border-line bg-paper px-3.5 py-3">
       <button
         type="button"
         onClick={() => onComplete(task)}
         aria-label="Mark complete"
-        className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 border-border text-transparent transition-colors hover:border-good hover:text-good"
+        className="grid h-6 w-6 flex-none place-items-center rounded-full border-2 border-line-2 text-transparent transition-colors hover:border-ink hover:text-ink"
       >
-        <CheckIcon className="h-4 w-4" />
+        <CheckIcon className="h-3.5 w-3.5" />
       </button>
 
       <div className="min-w-0 flex-1">
@@ -52,28 +53,32 @@ export function TaskItem({ task, onComplete, onDelete, onEdit }: Props) {
               setDraft(task.title)
               setEditing(true)
             }}
-            className="block w-full truncate text-left"
+            className="block w-full truncate text-left text-[15px] leading-snug"
           >
             {task.title}
           </button>
         )}
-        {due && (
-          <span
-            className={
-              'mt-0.5 block text-xs ' +
-              (isOverdue(task.due_date) ? 'text-bad' : isToday(task.due_date) ? 'text-brand' : 'text-muted')
-            }
-          >
-            {due}
-          </span>
-        )}
+        {due &&
+          (over ? (
+            <span className="mt-1 inline-block rounded bg-ink px-1.5 py-0.5 font-mono text-[11px] text-white">
+              {due}
+            </span>
+          ) : (
+            <span
+              className={
+                'mt-0.5 block font-mono text-[11px] ' + (isToday(task.due_date) ? 'text-ink' : 'text-faint')
+              }
+            >
+              {due}
+            </span>
+          ))}
       </div>
 
       <button
         type="button"
         onClick={() => onDelete(task)}
         aria-label="Delete task"
-        className="flex-shrink-0 rounded-lg p-2 text-muted transition-colors hover:bg-surface-2 hover:text-bad"
+        className="flex-none rounded-lg p-2 text-faint transition-colors hover:bg-paper-2 hover:text-ink"
       >
         <TrashIcon />
       </button>

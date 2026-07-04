@@ -8,11 +8,11 @@ export function StatTile({
   suffix?: string
 }) {
   return (
-    <div className="card flex flex-col gap-1 px-4 py-3">
-      <span className="pixel-label text-[10px] text-muted">{label}</span>
-      <span className="text-2xl font-bold tabular-nums">
+    <div className="card flex flex-col gap-2 px-4 py-3.5">
+      <span className="eyebrow">{label}</span>
+      <span className="font-display text-2xl tabular-nums tracking-tight">
         {value}
-        {suffix && <span className="ml-0.5 text-base font-medium text-muted">{suffix}</span>}
+        {suffix && <span className="ml-0.5 text-sm text-muted">{suffix}</span>}
       </span>
     </div>
   )

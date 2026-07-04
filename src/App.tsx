@@ -9,6 +9,8 @@ import { ToastProvider } from './components/Toast'
 import { TasksProvider } from './features/tasks/TasksContext'
 import { TodayView } from './features/tasks/TodayView'
 import { AllView } from './features/tasks/AllView'
+import { BriefView } from './features/brief/BriefView'
+import { MorningPopup } from './features/brief/MorningPopup'
 
 // Insights pulls in the charting library — load it only when visited.
 const InsightsView = lazy(() =>
@@ -36,10 +38,10 @@ export default function App() {
         <div className="mx-auto min-h-screen max-w-md px-4 pb-24">
           <div className="flex items-center justify-between py-3">
             <div className="flex items-center gap-2">
-              <Logo className="h-7 w-7" />
-              <span className="pixel-label text-sm font-semibold">Get Shit Done</span>
+              <Logo className="h-7 w-7 rounded-lg" />
+              <span className="font-display text-[15px] tracking-tight">Get Shit Done</span>
             </div>
-            <button onClick={signOut} className="pixel-label text-[11px] text-muted hover:text-text">
+            <button onClick={signOut} className="text-xs text-muted hover:text-ink">
               Sign out
             </button>
           </div>
@@ -48,11 +50,13 @@ export default function App() {
             <Routes>
               <Route path="/" element={<TodayView />} />
               <Route path="/all" element={<AllView />} />
+              <Route path="/brief" element={<BriefView />} />
               <Route path="/insights" element={<InsightsView />} />
             </Routes>
           </Suspense>
         </div>
         <NavBar />
+        <MorningPopup />
       </TasksProvider>
     </ToastProvider>
   )

@@ -19,18 +19,17 @@ const RANGES: { key: Range; label: string }[] = [
   { key: 'year', label: 'Year' },
 ]
 
-const BRAND = '#3D5AFE'
-const BRAND_SOFT = '#6E86FF'
-const GRID = '#DEE1EB'
-const AXIS = '#6A6F7E'
+const INK = '#0E0E0E'
+const GRID = '#EAEAE8'
+const AXIS = '#9B9B9B'
 
 function ChartTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null
   const count = payload[0].value as number
   return (
-    <div className="rounded-lg border border-border bg-surface-2 px-3 py-2 text-xs shadow-lg">
-      <div className="font-medium text-text">{label}</div>
-      <div className="text-muted">
+    <div className="rounded-lg bg-ink px-3 py-2 text-xs text-white shadow-lg">
+      <div className="font-semibold">{label}</div>
+      <div className="text-white/70">
         {count} {count === 1 ? 'task' : 'tasks'} done
       </div>
     </div>
@@ -59,8 +58,8 @@ export function InsightsView() {
   return (
     <div className="flex flex-col gap-6">
       <header className="pt-2">
-        <h1 className="text-2xl font-bold">Insights</h1>
-        <p className="text-sm text-muted">How much you're getting done.</p>
+        <h1 className="font-display text-3xl tracking-tight">Insights</h1>
+        <p className="mt-1 text-sm text-muted">How much you're getting done.</p>
       </header>
 
       <div className="grid grid-cols-2 gap-3">
@@ -72,16 +71,16 @@ export function InsightsView() {
 
       <div className="card flex flex-col gap-4 p-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold">Tasks completed</h2>
-          <div className="flex gap-1 rounded-lg bg-surface-2 p-1">
+          <h2 className="font-display text-[15px]">Completed</h2>
+          <div className="flex gap-0.5 rounded-lg border border-line bg-paper-2 p-0.5">
             {RANGES.map((r) => (
               <button
                 key={r.key}
                 type="button"
                 onClick={() => setRange(r.key)}
                 className={
-                  'rounded-md px-3 py-1 text-xs font-medium transition-colors ' +
-                  (range === r.key ? 'bg-brand text-white' : 'text-muted hover:text-text')
+                  'rounded-md px-3 py-1 font-mono text-[11px] transition-colors ' +
+                  (range === r.key ? 'bg-ink text-white' : 'text-muted hover:text-ink')
                 }
               >
                 {r.label}
@@ -111,10 +110,10 @@ export function InsightsView() {
                   axisLine={false}
                   width={32}
                 />
-                <Tooltip cursor={{ fill: 'rgba(61,90,254,0.08)' }} content={<ChartTooltip />} />
-                <Bar dataKey="count" radius={[4, 4, 0, 0]} maxBarSize={40}>
+                <Tooltip cursor={{ fill: 'rgba(14,14,14,0.06)' }} content={<ChartTooltip />} />
+                <Bar dataKey="count" radius={[3, 3, 0, 0]} maxBarSize={18}>
                   {insights.buckets.map((_, i) => (
-                    <Cell key={i} fill={i === maxIdx ? BRAND_SOFT : BRAND} />
+                    <Cell key={i} fill={i === maxIdx ? INK : '#0E0E0E'} fillOpacity={i === maxIdx ? 1 : 0.82} />
                   ))}
                 </Bar>
               </BarChart>

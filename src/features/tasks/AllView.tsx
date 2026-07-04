@@ -16,8 +16,8 @@ export function AllView() {
   return (
     <div className="flex flex-col gap-6">
       <header className="pt-2">
-        <h1 className="text-2xl font-bold">All tasks</h1>
-        <p className="text-sm text-muted">Everything on your plate until it's done.</p>
+        <h1 className="font-display text-3xl tracking-tight">All tasks</h1>
+        <p className="mt-1 text-sm text-muted">Everything on your plate until it's done.</p>
       </header>
 
       <QuickAdd onAdd={(title) => add(title, null)} placeholder="Add a someday task…" />

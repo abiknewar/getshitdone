@@ -52,6 +52,34 @@ export function ChartIcon({ className = base }: IconProps) {
   )
 }
 
+export function BriefIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="4" y="5" width="16" height="14" rx="1" />
+      <line x1="7" y1="9" x2="14" y2="9" />
+      <line x1="7" y1="13" x2="17" y2="13" />
+      <line x1="7" y1="16" x2="13" y2="16" />
+    </svg>
+  )
+}
+
+export function PlayIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <polygon points="7 4 20 12 7 20" />
+    </svg>
+  )
+}
+
+export function StopIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <rect x="6" y="5" width="4" height="14" />
+      <rect x="14" y="5" width="4" height="14" />
+    </svg>
+  )
+}
+
 export function SunIcon({ className = base }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

@@ -1,22 +1,15 @@
 export function Logo({ className = 'h-8 w-8' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 512 512" className={className} aria-hidden="true">
-      <defs>
-        <pattern id="gsd-dots" width="30" height="30" patternUnits="userSpaceOnUse">
-          <circle cx="7" cy="7" r="4.5" fill="#ffffff" opacity="0.35" />
-        </pattern>
-      </defs>
-      <rect x="40" y="40" width="432" height="432" rx="96" fill="#3D5AFE" />
-      <rect x="40" y="40" width="432" height="432" rx="96" fill="url(#gsd-dots)" />
-      <rect x="216" y="140" width="80" height="150" rx="40" fill="#ffffff" />
-      <path
-        d="M176 262 a80 80 0 0 0 160 0"
-        fill="none"
-        stroke="#ffffff"
-        strokeWidth="22"
-        strokeLinecap="round"
-      />
-      <line x1="256" y1="342" x2="256" y2="384" stroke="#ffffff" strokeWidth="22" strokeLinecap="round" />
+    <svg viewBox="0 0 512 512" className={className} aria-hidden="true" shapeRendering="crispEdges">
+      <rect x="40" y="40" width="432" height="432" rx="96" fill="#0E0E0E" />
+      <g fill="#FFFFFF">
+        <rect x="216" y="120" width="80" height="150" rx="8" />
+        <rect x="176" y="240" width="24" height="40" />
+        <rect x="312" y="240" width="24" height="40" />
+        <rect x="176" y="270" width="160" height="24" />
+        <rect x="232" y="294" width="48" height="70" />
+        <rect x="196" y="364" width="120" height="24" />
+      </g>
     </svg>
   )
 }

@@ -30,10 +30,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             className={
               'pointer-events-auto max-w-sm rounded-xl px-4 py-2.5 text-sm shadow-lg ' +
               (t.kind === 'error'
-                ? 'bg-bad/90 text-white'
-                : t.kind === 'success'
-                  ? 'bg-good/90 text-black'
-                  : 'bg-surface-2 text-text border border-border')
+                ? 'border border-ink bg-paper text-ink'
+                : 'bg-ink text-white')
             }
           >
             {t.text}
