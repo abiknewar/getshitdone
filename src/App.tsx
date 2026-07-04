@@ -11,6 +11,8 @@ import { TodayView } from './features/tasks/TodayView'
 import { AllView } from './features/tasks/AllView'
 import { BriefView } from './features/brief/BriefView'
 import { MorningPopup } from './features/brief/MorningPopup'
+import { UpdatePrompt } from './components/UpdatePrompt'
+import { InstallButton } from './components/InstallButton'
 
 // Insights pulls in the charting library — load it only when visited.
 const InsightsView = lazy(() =>
@@ -18,6 +20,16 @@ const InsightsView = lazy(() =>
 )
 
 export default function App() {
+  return (
+    <>
+      <AppBody />
+      {/* Always mounted so a new deploy can offer to refresh on any screen. */}
+      <UpdatePrompt />
+    </>
+  )
+}
+
+function AppBody() {
   const { configured, loading, session, user, signOut } = useAuth()
 
   if (!configured) return <SetupScreen />
@@ -41,9 +53,12 @@ export default function App() {
               <Logo className="h-7 w-7 rounded-lg" />
               <span className="font-display text-[15px] tracking-tight">Get Shit Done</span>
             </div>
-            <button onClick={signOut} className="text-xs text-muted hover:text-ink">
-              Sign out
-            </button>
+            <div className="flex items-center gap-3">
+              <InstallButton />
+              <button onClick={signOut} className="text-xs text-muted hover:text-ink">
+                Sign out
+              </button>
+            </div>
           </div>
 
           <Suspense fallback={<p className="py-8 text-center text-sm text-muted">Loading…</p>}>

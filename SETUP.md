@@ -1,13 +1,17 @@
-# Get Shit Done — Step-by-step setup
+# Get Shit Done — setup & updates
 
-Follow these in order. By the end you'll have the app **live on a URL** and
-**installed on your phone**, with voice control and the daily brief working.
+Three parts:
 
-Nothing here needs coding — it's all clicking around in dashboards and copy-paste.
+- **Part A — Get it on your phone** (do this once)
+- **Part B — Everyday use**
+- **Part C — Add features & ship an update** (how new features reach your phone)
 
+Nothing needs coding — it's clicking around dashboards and copy-paste.
 Your live app URL will be: **`https://abiknewar.github.io/getshitdone/`**
 
 ---
+
+# Part A · Get it on your phone
 
 ## What you'll create (all free to start)
 
@@ -15,118 +19,110 @@ Your live app URL will be: **`https://abiknewar.github.io/getshitdone/`**
 |-------|-----|------|
 | Supabase project | Login + stores your tasks + caches the brief | Free tier |
 | Anthropic API key | Powers voice commands + writes the daily brief | Pay-as-you-go (cents/day) |
-| X (Twitter) API token | *Optional* — blends real X posts into the brief | Paid ($100+/mo) — skip for now |
+| X (Twitter) API token | *Optional* — blends real X posts into the brief | Paid — skip for now |
 
-> You picked "X + web" for the brief. Web search alone works great and needs
-> **no** X token. Add the X token later (Step 7) only if you want it.
-
----
-
-## Step 1 · Create your Supabase project
-
+## A1 · Create your Supabase project
 1. Go to **[supabase.com](https://supabase.com)** → **Start your project** → sign in with GitHub.
-2. **New project**. Give it a name (e.g. `getshitdone`), set a database password (save it somewhere), pick a region near you, click **Create**.
-3. Wait ~2 minutes for it to spin up.
-4. Left sidebar → **Project Settings** (gear) → **API**. Copy these two — you'll need them a few times:
-   - **Project URL** (looks like `https://abcd1234.supabase.co`)
+2. **New project** → name it `getshitdone`, set a database password (save it), pick a nearby region → **Create**. Wait ~2 min.
+3. **Project Settings** (gear) → **API**. Copy these — you'll reuse them:
+   - **Project URL** (e.g. `https://abcd1234.supabase.co`)
    - **anon public** key (a long string)
 
-## Step 2 · Create the database tables
+## A2 · Create the database tables
+1. **SQL Editor** → **New query**.
+2. Copy all of `supabase/migrations/0001_init.sql`, paste, **Run**.
+3. New query → do the same with `supabase/migrations/0002_briefs.sql` → **Run**.
 
-1. Left sidebar → **SQL Editor** → **New query**.
-2. Open the file `supabase/migrations/0001_init.sql` from this repo, copy all of it, paste into the editor, click **Run**.
-3. New query again. Do the same with `supabase/migrations/0002_briefs.sql`. **Run**.
-
-You should see "Success". This created your tasks table + the daily-brief cache, with security so each person only sees their own tasks.
-
-## Step 3 · Turn on sign-in
-
-1. Left sidebar → **Authentication** → **Providers**.
-2. **Email** is already on (used for the magic-link login). That's enough to start.
-3. *(Optional)* To enable **Google** login, toggle it on and follow Supabase's prompts to add Google OAuth credentials.
-4. Left sidebar → **Authentication** → **URL Configuration** → **Redirect URLs** → add:
+## A3 · Turn on sign-in
+1. **Authentication → Providers** — **Email** is already on (magic-link login). Enough to start. (Google is optional.)
+2. **Authentication → URL Configuration → Redirect URLs** → add:
    - `https://abiknewar.github.io/getshitdone/`
-   - `http://localhost:5173` (for testing on your computer)
+   - `http://localhost:5173`
 
-## Step 4 · Get an Anthropic API key
+## A4 · Get an Anthropic API key
+1. **[console.anthropic.com](https://console.anthropic.com)** → sign up.
+2. **Settings → Billing** → add a little credit (e.g. $5 — lasts a long time for personal use).
+3. **API Keys → Create Key** → copy it (`sk-ant-...`) somewhere safe.
 
-1. Go to **[console.anthropic.com](https://console.anthropic.com)** → sign up.
-2. **Settings → Billing** → add a small amount of credit (e.g. $5 — this lasts a long time for personal use).
-3. **API Keys → Create Key**. Copy it (starts with `sk-ant-...`). You won't see it again, so paste it somewhere safe for the next step.
-
-## Step 5 · Install the Supabase CLI (one time)
-
-The CLI lets you deploy the two "functions" (the bits that talk to Claude).
-
-- **Mac:** open Terminal, run `brew install supabase/tap/supabase`
+## A5 · Install the Supabase CLI (one time)
+- **Mac:** `brew install supabase/tap/supabase`
 - **Windows:** install [Scoop](https://scoop.sh), then `scoop install supabase`
-- Or see [supabase.com/docs/guides/cli](https://supabase.com/docs/guides/cli)
+- Docs: [supabase.com/docs/guides/cli](https://supabase.com/docs/guides/cli)
 
 Then, in a terminal inside this project folder:
-
 ```bash
-supabase login                       # opens your browser to authorize
-supabase link --project-ref XXXX     # XXXX = the part before .supabase.co in your Project URL
+supabase login                       # authorizes in your browser
+supabase link --project-ref XXXX     # XXXX = the bit before .supabase.co in your Project URL
 ```
 
-## Step 6 · Deploy the two functions + set your Claude key
-
+## A6 · Deploy the two functions + set your Claude key
 ```bash
-# your Claude key from Step 4 — this stays on the server, never in the app
 supabase secrets set ANTHROPIC_API_KEY=sk-ant-your-key-here
-
-# deploy the voice + brief functions
+# optional (paid X plan): supabase secrets set X_BEARER_TOKEN=your-token
 supabase functions deploy voice-intent
 supabase functions deploy daily-brief
 ```
 
-That's the backend done — voice commands and the daily brief now work.
+## A7 · Put it live (GitHub Pages)
+1. Repo → **Settings → Secrets and variables → Actions → New repository secret**. Add two:
+   - `VITE_SUPABASE_URL` = your Project URL
+   - `VITE_SUPABASE_ANON_KEY` = your anon public key
+2. Push any commit (or repo → **Actions** tab → **Deploy to GitHub Pages** → **Run workflow**).
+   The workflow tries to **enable Pages automatically**. If it can't (some org settings block it),
+   go to **Settings → Pages → Source = GitHub Actions** once, then re-run.
+3. After ~1 minute the app is live at **`https://abiknewar.github.io/getshitdone/`**.
 
-## Step 7 · (Optional) Add the X / Twitter feed
-
-Only if you have a paid X API plan and want real X posts blended in:
-
-```bash
-supabase secrets set X_BEARER_TOKEN=your-x-bearer-token
-```
-
-No token? No problem — the brief uses web search and still covers all five topics.
-
-## Step 8 · Put it live on the internet (GitHub Pages)
-
-1. On GitHub, open this repo → **Settings → Pages**. Under **Build and deployment → Source**, choose **GitHub Actions**.
-2. Repo → **Settings → Secrets and variables → Actions → New repository secret**. Add two:
-   - `VITE_SUPABASE_URL` = your Project URL (Step 1)
-   - `VITE_SUPABASE_ANON_KEY` = your anon public key (Step 1)
-3. Go to the **Actions** tab → the "Deploy to GitHub Pages" workflow → **Run workflow** (or just push any commit). It builds and publishes automatically.
-4. After ~1 minute your app is live at **`https://abiknewar.github.io/getshitdone/`**.
-
-## Step 9 · Install it on your phone
-
-1. Open **`https://abiknewar.github.io/getshitdone/`** in **Chrome (Android)** or **Safari (iPhone)**.
-2. **iPhone:** tap the **Share** button → **Add to Home Screen**.
-   **Android:** tap the **⋮** menu → **Install app** / **Add to Home screen**.
-3. Open it from your home screen — it now runs full-screen like a normal app, and the microphone works (tap **Allow** the first time it asks).
+## A8 · Install it on your phone
+1. Open the live URL in **Chrome (Android)** or **Safari (iPhone)**.
+2. **iPhone:** **Share** → **Add to Home Screen**.
+   **Android:** you'll see an **Install app** button in the app (or **⋮** menu → **Install app**).
+3. Open it from the home screen — full-screen, like a native app. Tap **Allow** when it asks for the mic.
 
 ---
 
-## Running on your computer (optional, for testing)
+# Part B · Everyday use
 
+- **Tasks:** tap the pixel mic and speak ("add buy milk and call mom tomorrow", "I finished the report"), or type. Tasks stay until you complete them.
+- **Daily brief:** open the app in the morning — it asks if you want the brief, then reads ~12 stories aloud across AI, tech, marketing, content and geopolitics. Or open the **Brief** tab any time and tap ▶.
+- **Insights:** streak, completion rate, and week/month/year charts.
+
+---
+
+# Part C · Add features & ship an update
+
+This is the loop that gets **new features onto your installed phone app**:
+
+```
+edit the app  →  commit & push to the branch  →  GitHub rebuilds the live site
+             →  within ~1 min your phone app shows "New version — tap to update"
+             →  tap Update  →  it refreshes into the new feature
+```
+
+You don't reinstall anything — the installed app updates itself in place.
+
+**How to add a feature:** just ask me (Claude) — e.g. *"add tags to tasks"*,
+*"let me pick which brief topics I care about"*, *"add a dark mode"*. I make the
+change on the branch and push; the steps above do the rest.
+
+**A few specifics:**
+- **App/design/feature changes** (most things): push → the update banner appears. Nothing else to do.
+- **New database fields** (e.g. task tags): I'll give you a short SQL snippet to run in the Supabase **SQL Editor** (like Part A2).
+- **Voice/brief logic changes:** re-run `supabase functions deploy voice-intent` (or `daily-brief`). I'll tell you when that's needed.
+- **Secrets/keys** are set once (Part A6/A7) and reused.
+
+> If you ever don't see the update, fully close the app and reopen it — it checks for a new version on launch.
+
+---
+
+## Running on your computer (optional)
 ```bash
 npm install
-cp .env.example .env      # then paste your Supabase URL + anon key into .env
+cp .env.example .env      # paste your Supabase URL + anon key
 npm run dev               # open the printed http://localhost:5173 link
 ```
 
-## Everyday use
-
-- **Tasks:** tap the mic and say things ("add buy milk and call mom tomorrow", "I finished the report"), or type. Tasks stay until you complete them.
-- **Daily brief:** open the app in the morning — it asks if you want the brief, then reads ~12 stories aloud. Or open the **Brief** tab any time and tap ▶.
-- **Insights:** see your streak, completion rate, and weekly/monthly/yearly charts.
-
 ## Troubleshooting
-
-- **"Almost there" screen** → the GitHub secrets in Step 8.2 are missing or misspelled. Re-check them and re-run the workflow.
-- **Voice does nothing** → make sure Step 6 finished (`voice-intent` deployed, key set) and you tapped **Allow** for the mic.
-- **Brief won't load** → make sure `daily-brief` is deployed and the Anthropic key is set; open the Brief tab and tap **Try again**.
+- **"Almost there" screen** → the GitHub secrets (A7.1) are missing/misspelled. Fix and re-run the workflow.
+- **Voice does nothing** → check A6 finished (`voice-intent` deployed, key set) and you tapped **Allow** for the mic.
+- **Brief won't load** → check `daily-brief` is deployed + the Anthropic key is set; open the Brief tab → **Try again**.
 - **Costs** → set a spend limit in the Anthropic console. Personal use is typically a few cents a day.

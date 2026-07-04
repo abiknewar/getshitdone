@@ -4,8 +4,9 @@ A voice-first task manager **and** daily news brief, in a clean black-and-white
 (pixel-microphone) design. Installable as a PWA — add it to your phone's home
 screen and it behaves like a native app.
 
-**👉 New here? Follow [SETUP.md](SETUP.md) — a plain-English, click-by-click
-guide** to get it live on a URL and installed on your phone.
+**👉 New here? Follow [SETUP.md](SETUP.md)** — a plain-English, click-by-click
+guide: **Part A** get it installed on your phone, **Part B** everyday use,
+**Part C** how new features you add reach the installed app.
 
 - 🎙️ **Talk to it.** "Add buy milk and call mom tomorrow." "I finished the report."
   Claude figures out whether you meant add / complete / delete / reschedule —
