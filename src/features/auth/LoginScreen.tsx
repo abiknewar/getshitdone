@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { Logo } from '../../components/Logo'
-import { InstallButton } from '../../components/InstallButton'
 
 export function LoginScreen() {
   const [email, setEmail] = useState('')
@@ -74,10 +73,6 @@ export function LoginScreen() {
             </button>
           </form>
         )}
-
-        <div className="mt-5 flex justify-center">
-          <InstallButton />
-        </div>
       </div>
     </div>
   )

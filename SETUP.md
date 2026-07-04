@@ -2,16 +2,17 @@
 
 Three parts:
 
-- **Part A — Get it on your phone** (do this once)
+- **Part A — Get your website live** (do this once)
 - **Part B — Everyday use**
-- **Part C — Add features & ship an update** (how new features reach your phone)
+- **Part C — Add features & ship an update** (how new features reach the site)
 
 Nothing needs coding — it's clicking around dashboards and copy-paste.
-Your live app URL will be: **`https://abiknewar.github.io/getshitdone/`**
+Your website will live at: **`https://abiknewar.github.io/getshitdone/`** —
+just open that link in any browser, on phone or desktop.
 
 ---
 
-# Part A · Get it on your phone
+# Part A · Get your website live
 
 ## What you'll create (all free to start)
 
@@ -72,33 +73,34 @@ supabase functions deploy daily-brief
    go to **Settings → Pages → Source = GitHub Actions** once, then re-run.
 3. After ~1 minute the app is live at **`https://abiknewar.github.io/getshitdone/`**.
 
-## A8 · Install it on your phone
-1. Open the live URL in **Chrome (Android)** or **Safari (iPhone)**.
-2. **iPhone:** **Share** → **Add to Home Screen**.
-   **Android:** you'll see an **Install app** button in the app (or **⋮** menu → **Install app**).
-3. Open it from the home screen — full-screen, like a native app. Tap **Allow** when it asks for the mic.
+## A8 · Open your website
+1. Go to **`https://abiknewar.github.io/getshitdone/`** in any browser (phone or desktop).
+2. Sign in with your email (magic link). That's it — it's a normal website, nothing to install.
+3. Tap **Allow** when it asks for the microphone (needed for voice commands).
+
+> *(Optional)* If you ever want a home-screen shortcut, most browsers let you "Add to Home Screen" — but it's just a bookmark to the site. No install required.
 
 ---
 
 # Part B · Everyday use
 
 - **Tasks:** tap the pixel mic and speak ("add buy milk and call mom tomorrow", "I finished the report"), or type. Tasks stay until you complete them.
-- **Daily brief:** open the app in the morning — it asks if you want the brief, then reads ~12 stories aloud across AI, tech, marketing, content and geopolitics. Or open the **Brief** tab any time and tap ▶.
+- **Daily brief:** open the site in the morning — it asks if you want the brief, then reads ~12 stories aloud across AI, tech, marketing, content and geopolitics. Or open the **Brief** tab any time and tap ▶.
 - **Insights:** streak, completion rate, and week/month/year charts.
 
 ---
 
 # Part C · Add features & ship an update
 
-This is the loop that gets **new features onto your installed phone app**:
+This is the loop that gets **new features onto your live website**:
 
 ```
 edit the app  →  commit & push to the branch  →  GitHub rebuilds the live site
-             →  within ~1 min your phone app shows "New version — tap to update"
-             →  tap Update  →  it refreshes into the new feature
+             →  within ~1 min the site shows "New version — tap to update"
+             →  tap Update (or just refresh)  →  the new feature is live
 ```
 
-You don't reinstall anything — the installed app updates itself in place.
+Nothing to reinstall — it's a website, so visitors always get the latest on refresh.
 
 **How to add a feature:** just ask me (Claude) — e.g. *"add tags to tasks"*,
 *"let me pick which brief topics I care about"*, *"add a dark mode"*. I make the
@@ -110,7 +112,7 @@ change on the branch and push; the steps above do the rest.
 - **Voice/brief logic changes:** re-run `supabase functions deploy voice-intent` (or `daily-brief`). I'll tell you when that's needed.
 - **Secrets/keys** are set once (Part A6/A7) and reused.
 
-> If you ever don't see the update, fully close the app and reopen it — it checks for a new version on launch.
+> If you ever don't see the update, refresh the page (or close the tab and reopen) — it checks for a new version on load.
 
 ---
 

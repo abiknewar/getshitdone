@@ -12,7 +12,6 @@ import { AllView } from './features/tasks/AllView'
 import { BriefView } from './features/brief/BriefView'
 import { MorningPopup } from './features/brief/MorningPopup'
 import { UpdatePrompt } from './components/UpdatePrompt'
-import { InstallButton } from './components/InstallButton'
 
 // Insights pulls in the charting library — load it only when visited.
 const InsightsView = lazy(() =>
@@ -53,12 +52,9 @@ function AppBody() {
               <Logo className="h-7 w-7 rounded-lg" />
               <span className="font-display text-[15px] tracking-tight">Get Shit Done</span>
             </div>
-            <div className="flex items-center gap-3">
-              <InstallButton />
-              <button onClick={signOut} className="text-xs text-muted hover:text-ink">
-                Sign out
-              </button>
-            </div>
+            <button onClick={signOut} className="text-xs text-muted hover:text-ink">
+              Sign out
+            </button>
           </div>
 
           <Suspense fallback={<p className="py-8 text-center text-sm text-muted">Loading…</p>}>
